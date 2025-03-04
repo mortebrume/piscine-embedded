@@ -10,7 +10,8 @@ TARGET := main
 
 CC := avr-gcc
 CFLAGS += -Wall -Werror -Wextra -Os -mmcu=atmega328p
-F_CPU := 115200
+F_CPU := 16000000
+BAUD_RATE := 115200
 PORT := /dev/tty.usbserial-10
 
 #* ************************************************************************** *#
@@ -98,7 +99,7 @@ hex: $(TARGET)
 
 flash: hex
 	@printf "$(YELLOW)Flashing $(BOLD)$(CYAN)the card $(RESET_COLOR)$(YELLOW)...$(RESET_COLOR)\n\n"
-	@avrdude -c arduino -p m328p -P $(PORT) -b $(F_CPU) -U flash:w:$(TARGET).hex
+	@avrdude -c arduino -p m328p -P $(PORT) -b $(BAUD_RATE) -U flash:w:$(TARGET).hex
 
 # -------------------- #
 # Create object files. #
