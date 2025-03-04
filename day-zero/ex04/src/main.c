@@ -3,9 +3,9 @@
 #include <stdint.h>
 
 void update_leds(uint8_t count) {
-  // Only unset the bits that are we are using.
+  // Only unset the bits that we are using.
   PORTB &= ~((1 << PORTB0) | (1 << PORTB1) | (1 << PORTB2) | (1 << PORTB4));
-  // We are manually setting the 4th bit if it's here to PORTB4.
+  // We are manually setting the 4th bit (if its set) to PORTB4.
   if (count & 0b1000) {
     PORTB |= (1 << PORTB4);
     // Removing the 4th bit to avoid setting PORTB3.
@@ -17,7 +17,7 @@ void update_leds(uint8_t count) {
 
 void toggle_count(volatile uint8_t *count, int pin) {
   if (!(PIND & (1 << pin))) {
-    // We are using modulo there to warp around 16.
+    // We are using modulo there to wrap around 16.
     if (pin == PD2)
       *count = (*count + 1) % 16;
     if (pin == PD4)
