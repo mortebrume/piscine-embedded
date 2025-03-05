@@ -1,2 +1,2 @@
 CompileFlags:
-  Add: [--target=avr, -mmcu=atmega328p, -Wall, -Wextra, -Werror, -I/opt/homebrew/opt/avr-gcc/avr/include]
+  Add: [--target=avr, -mmcu=atmega328p, -Wall, -Wextra, -Werror, -Wno-unknown-attributes, -I/opt/homebrew/opt/avr-gcc/avr/include]
