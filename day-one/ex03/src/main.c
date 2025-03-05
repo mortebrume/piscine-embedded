@@ -4,10 +4,10 @@
 
 // Using the usual timer count as global.
 // Steps are made of 10% increments.
-const uint16_t TC = 31249;
+const uint16_t TC = 62500;
 const uint16_t STEP = TC / 10;
 
-// We check for which button was pressed to adjust OCR1A.
+// We check which button was pressed to adjust OCR1A.
 void toggle_duty(int pin) {
   if (!(PIND & (1 << pin))) {
     if (pin == PD2 && OCR1A < ICR1)

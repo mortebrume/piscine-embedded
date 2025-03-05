@@ -11,10 +11,10 @@ int main() {
 
   TCCR1A |= (1 << COM1A1);
 
-  // Still at 2Hz.
-  ICR1 = 31249;
+  // 1Hz.
+  ICR1 = 62500;
   // 10% of ICR1.
-  OCR1A = 3124;
+  OCR1A = 6250;
 
   TCCR1B |= (1 << CS12);
 
