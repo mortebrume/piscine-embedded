@@ -2,7 +2,7 @@
 #include "avr/interrupt.h"
 #include "avr/io.h"
 
-void uart_tx(char c) {
+void uart_tx(unsigned char c) {
   // Only send data if it's ready to be sent.
   if (UCSR0A & (1 << UDRE0))
     UDR0 = c; // Register to send data (p. 200)

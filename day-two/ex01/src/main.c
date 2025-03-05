@@ -2,16 +2,17 @@
 #include "avr/interrupt.h"
 #include "avr/io.h"
 
-void uart_tx(char c) {
+void uart_tx(unsigned char c) {
   while (!(UCSR0A & (1 << UDRE0)))
     ;
   UDR0 = c;
 }
 
 static void uart_printstr(char *s) {
-  // Transmit character until NULL is reached
+  // Transmit character until NULL is reached.
   while (*s > 0)
     uart_tx(*s++);
+  // LF & CR.
   uart_tx('\n');
   uart_tx('\r');
 }
