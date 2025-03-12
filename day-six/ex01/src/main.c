@@ -66,6 +66,9 @@ int main() {
     measure();
     i2c_read();
     i2c_stop();
+
+    // Wait every 2s between each read (p.5).
+    _delay_ms(2000);
   }
 
   return (0);
