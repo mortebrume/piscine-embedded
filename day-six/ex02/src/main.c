@@ -38,11 +38,14 @@ void measure() {
 }
 
 void convert(uint8_t data[5]) {
+  // 2 bytes + 4 top bits for humidity (p. 8).
   double hum_raw = ((int32_t)data[0] << 12) | ((int32_t)data[1] << 4) |
                    (((int32_t)data[2] >> 4) & 0x0F);
+  // 4 bottom bits + 2 bytes for temp (ibid.).
   double temp_raw = (((int32_t)data[2] & 0x0F) << 16) |
                     ((int32_t)data[3] << 8) | ((int32_t)data[4]);
 
+  // Formulas found on datahseet (p. 9).
   double hum_val = (hum_raw / 1048576.0) * 100.0;
   double temp_val = (temp_raw / 1048576.0) * 200.0 - 50.0;
 
@@ -69,9 +72,12 @@ void aht_read() {
 void print_results() {
   char hum_buf[16];
   char temp_buf[16];
+  // Average of 3 measurements.
   double hum_avg = (hum[0] + hum[1] + hum[2]) / 3.0;
   double temp_avg = (temp[0] + temp[1] + temp[2]) / 3.0;
+  // 2 precision for humidity (p. 2).
   dtostrf(hum_avg, 0, 2, hum_buf);
+  // 1 precision for temp (ibid.).
   dtostrf(temp_avg, 0, 1, temp_buf);
 
   uart_printstr("Temperature: ");
